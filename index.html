@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,35 +12,20 @@
 <style>
 
 body{
-font-family: system-ui, -apple-system, sans-serif;
-background: linear-gradient(135deg,#f8f9ff,#eef1ff);
+font-family: system-ui, -apple-system;
 margin:0;
-display:flex;
-align-items:center;
-justify-content:center;
-height:100vh;
-text-align:center;
+background:linear-gradient(135deg,#eef2ff,#f8f9ff);
 color:#333;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+text-align:center;
 }
 
 .container{
-max-width:500px;
-padding:30px;
-}
-
-.card{
-background:white;
+max-width:520px;
 padding:25px;
-margin:15px 0;
-border-radius:14px;
-box-shadow:0 10px 30px rgba(0,0,0,0.12);
-cursor:pointer;
-transition:transform 0.2s, box-shadow 0.2s;
-}
-
-.card:hover{
-transform:translateY(-5px);
-box-shadow:0 15px 40px rgba(0,0,0,0.18);
 }
 
 button{
@@ -50,15 +36,29 @@ padding:14px 24px;
 font-size:18px;
 border-radius:10px;
 cursor:pointer;
-margin-top:10px;
+margin-top:15px;
+}
+
+.card{
+background:white;
+padding:22px;
+margin:15px 0;
+border-radius:14px;
+box-shadow:0 12px 30px rgba(0,0,0,0.15);
+cursor:pointer;
+transition:0.25s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 18px 45px rgba(0,0,0,0.2);
 }
 
 input{
 padding:12px;
-font-size:16px;
 border-radius:8px;
 border:1px solid #ccc;
-width:200px;
+font-size:16px;
 }
 
 .hidden{
@@ -66,12 +66,35 @@ display:none;
 }
 
 .fade{
-animation:fadein 1s;
+animation:fadein 0.8s;
 }
 
 @keyframes fadein{
-from{opacity:0;transform:translateY(10px)}
+from{opacity:0;transform:translateY(8px)}
 to{opacity:1;transform:translateY(0)}
+}
+
+.carousel{
+display:flex;
+overflow-x:auto;
+gap:12px;
+scroll-snap-type:x mandatory;
+margin-top:15px;
+}
+
+.carousel img{
+width:100%;
+border-radius:12px;
+scroll-snap-align:center;
+flex:0 0 100%;
+}
+
+ul{
+text-align:left;
+}
+
+.back{
+background:#777;
 }
 
 </style>
@@ -81,15 +104,15 @@ to{opacity:1;transform:translateY(0)}
 
 <div class="container">
 
+<!-- LOGIN -->
+
 <div id="login">
 
 <h1>🎁 Dein Geburtstagsgeschenk</h1>
 
 <p>Dieses Geschenk ist geschützt.</p>
 
-<p><b>Passwort eingeben:</b></p>
-
-<input type="password" id="pw">
+<input type="password" id="pw" placeholder="Passwort">
 
 <br>
 
@@ -100,43 +123,125 @@ to{opacity:1;transform:translateY(0)}
 </div>
 
 
-<div id="reveal" class="hidden">
+<!-- REVEAL -->
+
+<div id="reveal" class="hidden fade">
 
 <h1>Dein Geschenk wartet ✨</h1>
 
-<p>Bereit?</p>
+<p>Bist du bereit?</p>
 
 <button onclick="showChoices()">Geschenk öffnen</button>
 
 </div>
 
 
+<!-- CHOICE -->
+
 <div id="choices" class="hidden fade">
 
 <h1>Du darfst wählen</h1>
 
-<div class="card" onclick="choose('Wien')">
+<div class="card" onclick="showVienna()">
 
 <h2>🇦🇹 Wochenende in Wien</h2>
 
-<p>Ein Kurztrip voller Kaffeehäuser, Kultur und guter Restaurants.</p>
+<p>Kultur, Kaffeehäuser und großartige Restaurants.</p>
 
 </div>
 
-<div class="card" onclick="choose('Resort')">
+<div class="card" onclick="showResort()">
 
 <h2>🌿 Erholungsresort</h2>
 
-<p>Ein paar Tage entspannen, abschalten und genießen.</p>
+<p>Ein paar Tage Entspannung und Wellness.</p>
 
 </div>
 
 </div>
 
+
+<!-- VIENNA -->
+
+<div id="vienna" class="hidden fade">
+
+<h1>🇦🇹 Wochenende in Wien</h1>
+
+<p><i>Dein Kurztrip könnte so aussehen ✨</i></p>
+
+<div class="carousel">
+
+<img src="images/vienna1.jpg">
+<img src="images/vienna2.jpg">
+<img src="images/vienna3.jpg">
+
+</div>
+
+<ul>
+
+<li>2–3 Nächte Hotel</li>
+<li>Kaffeehausbesuch</li>
+<li>Spaziergang durch die Altstadt</li>
+<li>Abendessen in einem tollen Restaurant</li>
+
+</ul>
+
+<button onclick="confirmChoice('Wien')">
+Das möchte ich 🎉
+</button>
+
+<br>
+
+<button class="back" onclick="back()">
+Zurück
+</button>
+
+</div>
+
+
+<!-- RESORT -->
+
+<div id="resort" class="hidden fade">
+
+<h1>🌿 Erholungsresort</h1>
+
+<p><i>Ein paar Tage pure Entspannung</i></p>
+
+<div class="carousel">
+
+<img src="images/resort1.jpg">
+<img src="images/resort2.jpg">
+<img src="images/resort3.jpg">
+
+</div>
+
+<ul>
+
+<li>Spa & Sauna</li>
+<li>Wellness & Entspannung</li>
+<li>Gutes Essen</li>
+<li>Natur & Spaziergänge</li>
+
+</ul>
+
+<button onclick="confirmChoice('Resort')">
+Das möchte ich 🎉
+</button>
+
+<br>
+
+<button class="back" onclick="back()">
+Zurück
+</button>
+
+</div>
+
+
+<!-- RESULT -->
 
 <div id="result" class="hidden fade">
 
-<h1>Gute Wahl! 🎉</h1>
+<h1>Perfekte Wahl 🎉</h1>
 
 <p id="choiceText"></p>
 
@@ -149,25 +254,26 @@ to{opacity:1;transform:translateY(0)}
 
 <script>
 
-const PASSWORD = "Motte"; // HIER ändern
+const PASSWORD="Motte";
+
 
 function check(){
 
-const pw = document.getElementById("pw").value;
+let pw=document.getElementById("pw").value;
 
-if(pw === PASSWORD){
+if(pw===PASSWORD){
 
 document.getElementById("login").style.display="none";
 document.getElementById("reveal").classList.remove("hidden");
 
-}
-else{
+}else{
 
 document.getElementById("error").innerText="Falsches Passwort";
 
 }
 
 }
+
 
 function showChoices(){
 
@@ -176,12 +282,41 @@ document.getElementById("choices").classList.remove("hidden");
 
 }
 
-function choose(option){
+
+function showVienna(){
 
 document.getElementById("choices").style.display="none";
+document.getElementById("vienna").classList.remove("hidden");
+
+}
+
+
+function showResort(){
+
+document.getElementById("choices").style.display="none";
+document.getElementById("resort").classList.remove("hidden");
+
+}
+
+
+function back(){
+
+document.getElementById("vienna").classList.add("hidden");
+document.getElementById("resort").classList.add("hidden");
+
+document.getElementById("choices").style.display="block";
+
+}
+
+
+function confirmChoice(option){
+
+document.getElementById("vienna").style.display="none";
+document.getElementById("resort").style.display="none";
+
 document.getElementById("result").classList.remove("hidden");
 
-document.getElementById("choiceText").innerHTML =
+document.getElementById("choiceText").innerHTML=
 "Du hast dich für <b>"+option+"</b> entschieden.";
 
 }
