@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Geburtstagsgeschenk</title>
+
+<meta name="robots" content="noindex, nofollow">
+
+<style>
+
+body{
+font-family: system-ui, -apple-system, sans-serif;
+background: linear-gradient(135deg,#f8f9ff,#eef1ff);
+margin:0;
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
+text-align:center;
+color:#333;
+}
+
+.container{
+max-width:500px;
+padding:30px;
+}
+
+.card{
+background:white;
+padding:25px;
+margin:15px 0;
+border-radius:14px;
+box-shadow:0 10px 30px rgba(0,0,0,0.12);
+cursor:pointer;
+transition:transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 15px 40px rgba(0,0,0,0.18);
+}
+
+button{
+background:#ff6b6b;
+border:none;
+color:white;
+padding:14px 24px;
+font-size:18px;
+border-radius:10px;
+cursor:pointer;
+margin-top:10px;
+}
+
+input{
+padding:12px;
+font-size:16px;
+border-radius:8px;
+border:1px solid #ccc;
+width:200px;
+}
+
+.hidden{
+display:none;
+}
+
+.fade{
+animation:fadein 1s;
+}
+
+@keyframes fadein{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="login">
+
+<h1>🎁 Dein Geburtstagsgeschenk</h1>
+
+<p>Dieses Geschenk ist geschützt.</p>
+
+<p><b>Passwort eingeben:</b></p>
+
+<input type="password" id="pw">
+
+<br>
+
+<button onclick="check()">Öffnen</button>
+
+<p id="error" style="color:red;"></p>
+
+</div>
+
+
+<div id="reveal" class="hidden">
+
+<h1>Dein Geschenk wartet ✨</h1>
+
+<p>Bereit?</p>
+
+<button onclick="showChoices()">Geschenk öffnen</button>
+
+</div>
+
+
+<div id="choices" class="hidden fade">
+
+<h1>Du darfst wählen</h1>
+
+<div class="card" onclick="choose('Wien')">
+
+<h2>🇦🇹 Wochenende in Wien</h2>
+
+<p>Ein Kurztrip voller Kaffeehäuser, Kultur und guter Restaurants.</p>
+
+</div>
+
+<div class="card" onclick="choose('Resort')">
+
+<h2>🌿 Erholungsresort</h2>
+
+<p>Ein paar Tage entspannen, abschalten und genießen.</p>
+
+</div>
+
+</div>
+
+
+<div id="result" class="hidden fade">
+
+<h1>Gute Wahl! 🎉</h1>
+
+<p id="choiceText"></p>
+
+<p>Ich kümmere mich um die Planung.</p>
+
+</div>
+
+</div>
+
+
+<script>
+
+const PASSWORD = "Motte"; // HIER ändern
+
+function check(){
+
+const pw = document.getElementById("pw").value;
+
+if(pw === PASSWORD){
+
+document.getElementById("login").style.display="none";
+document.getElementById("reveal").classList.remove("hidden");
+
+}
+else{
+
+document.getElementById("error").innerText="Falsches Passwort";
+
+}
+
+}
+
+function showChoices(){
+
+document.getElementById("reveal").style.display="none";
+document.getElementById("choices").classList.remove("hidden");
+
+}
+
+function choose(option){
+
+document.getElementById("choices").style.display="none";
+document.getElementById("result").classList.remove("hidden");
+
+document.getElementById("choiceText").innerHTML =
+"Du hast dich für <b>"+option+"</b> entschieden.";
+
+}
+
+</script>
+
+</body>
+</html>
